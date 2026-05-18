@@ -1,1 +1,7 @@
 node_modules
+
+# Local notes and reference material for redesign/content work.
+_referencias/
+
+# Local Vite dev server logs.
+.vite-dev*.log
