@@ -1,14 +1,39 @@
-import MainContent from "./components/MainContent";
-import Sidebar from "./components/Sidebar";
-
+import About from "./components/About";
+import Cases from "./components/Cases";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
+import Hero from "./components/Hero";
+import Navbar from "./components/Navbar";
+import Projects from "./components/Projects";
+import SpectraNoiseBackground from "./components/SpectraNoiseBackground";
+import TechStack from "./components/TechStack";
+import Timeline from "./components/Timeline";
+import {
+  cases,
+  contactLinks,
+  impactMetrics,
+  navLinks,
+  projects,
+  technologyGroups,
+  timeline,
+} from "./data/portfolio";
 import "./styles/components/app.sass";
 
 function App() {
   return (
-    <div id="portfolio">
-      <h1>João Vitor Santos de Paula</h1>
-      <Sidebar />
-      <MainContent />
+    <div className="portfolio-page">
+      <SpectraNoiseBackground />
+      <Navbar links={navLinks} />
+      <main>
+        <Hero metrics={impactMetrics} />
+        <About />
+        <Cases cases={cases} />
+        <Projects projects={projects} />
+        <TechStack groups={technologyGroups} />
+        <Timeline items={timeline} />
+        <Contact links={contactLinks} />
+      </main>
+      <Footer />
     </div>
   );
 }

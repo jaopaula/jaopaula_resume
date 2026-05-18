@@ -1,13 +1,71 @@
-@use 'variables'
+:root
+    --font-display: "Clash Display", "Inter", "Inter Fallback", ui-sans-serif, system-ui, sans-serif
+    --font-body: "Inter", "Inter Fallback", ui-sans-serif, system-ui, sans-serif
+    --color-background: #050505
+    --color-section: #0D0D0D
+    --color-card: rgba(255, 255, 255, 0.035)
+    --color-border: rgba(255, 255, 255, 0.10)
+    --color-text-primary: #F4F4F0
+    --color-text-strong: #FFFFFF
+    --color-text-secondary: #999999
+    --color-text-tertiary: rgba(255, 255, 255, 0.48)
+    --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.48)
+    --shadow-card: 0 18px 50px rgba(0, 0, 0, 0.24)
+    --radius-card: 8px
+    --radius-pill: 999px
 
 *
     padding: 0
     margin: 0
-    font-family: variables.$font-stack
     box-sizing: border-box
 
-body
-    background-color: variables.$body-bg-color
+html
+    scroll-behavior: smooth
+    scroll-padding-top: 96px
+    font-family: var(--font-body)
 
-a, svg
-    transition: .4s
+body
+    min-width: 320px
+    background: var(--color-background)
+    color: var(--color-text-primary)
+    font-family: var(--font-body)
+    font-weight: 400
+    line-height: 1.5
+    font-synthesis: none
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+    text-rendering: geometricPrecision
+
+button,
+input,
+textarea
+    font-family: inherit
+    font-size: inherit
+    font-weight: inherit
+    line-height: inherit
+
+a
+    color: inherit
+    text-decoration: none
+
+strong,
+b
+    font-weight: 500
+
+a,
+button
+    &:focus-visible
+        outline: 2px solid rgba(255, 255, 255, .72)
+        outline-offset: 3px
+
+button
+    border: 0
+    cursor: pointer
+
+img
+    display: block
+    max-width: 100%
+
+::selection
+    background: rgba(255, 255, 255, .22)
+    color: #FFFFFF
