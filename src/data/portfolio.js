@@ -1,55 +1,9 @@
 export const navLinks = [
   { label: "Sobre", href: "#sobre" },
   { label: "Cases", href: "#cases" },
-  { label: "Projetos", href: "#projetos" },
   { label: "Stack", href: "#tecnologias" },
   { label: "Experiência", href: "#experiencia" },
   { label: "Contato", href: "#contato" },
-];
-
-export const impactMetrics = [
-  {
-    value: "40h → 10min",
-    label: "Análise automatizada",
-    detail: "Processamento de 3 meses de dados no Centro Médico.",
-  },
-  {
-    value: "60h → 1min",
-    label: "Anonimização operacional",
-    detail: "Relatórios anuais anonimizados com padronização e rastreabilidade.",
-  },
-  {
-    value: "+98%",
-    label: "Redução de esforço",
-    detail: "Automações orientadas a reduzir tarefas manuais repetitivas.",
-  },
-];
-
-export const projects = [
-  {
-    title: "Centro Médico",
-    area: "Saúde ocupacional",
-    problem: "Análises manuais demoradas dificultavam a visão rápida de exames, rankings e indicadores.",
-    solution: "Automação de pipelines analíticos, anonimização de relatórios e painéis para acompanhamento operacional.",
-    impact: "Análises de meses passaram de horas para minutos.",
-    tags: ["Python", "Pandas", "Dashboards", "Automação"],
-  },
-  {
-    title: "Absenteísmo",
-    area: "RH e operações",
-    problem: "Faltas e afastamentos precisavam ser entendidos por empresa, cargo, turno e departamento.",
-    solution: "Segmentação de dados, indicadores comparativos e visões para apoiar decisões do RH.",
-    impact: "Mais clareza para priorizar ações e investigar padrões de ausência.",
-    tags: ["Python", "BI", "Indicadores", "Análise"],
-  },
-  {
-    title: "Fiscal / NFSe",
-    area: "Fiscal e compliance",
-    problem: "Validações e acompanhamento de SLA dependiam de consolidações manuais e pouca rastreabilidade.",
-    solution: "Modelagem de indicadores, validação de dados e integração com visões executivas e operacionais.",
-    impact: "Acompanhamento mais confiável de qualidade, prazos e inconsistências.",
-    tags: ["SQL", "MicroStrategy", "ETL", "SLA"],
-  },
 ];
 
 export const cases = [

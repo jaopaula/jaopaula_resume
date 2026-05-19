@@ -25,17 +25,6 @@ const CaseCard = ({ item, index }) => (
         ))}
       </div>
     </div>
-    <div className="case-visual" aria-label={`Gráfico ilustrativo do case ${item.title}`}>
-      <div className="visual-row">
-        <span>Antes</span>
-        <div><i style={{ width: index === 0 ? "92%" : "78%" }} /></div>
-      </div>
-      <div className="visual-row accent">
-        <span>Depois</span>
-        <div><i style={{ width: index === 0 ? "18%" : "38%" }} /></div>
-      </div>
-      <small>Placeholder visual para grafico comparativo</small>
-    </div>
   </motion.article>
 );
 

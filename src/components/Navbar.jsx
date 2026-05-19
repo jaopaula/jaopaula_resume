@@ -1,32 +1,70 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Navbar = ({ links }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("sobre");
+  const activeSectionRef = useRef("sobre");
+  const isScrolledRef = useRef(false);
+  const scrollFrameRef = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 24);
+      if (scrollFrameRef.current) return;
 
-      const visibleSection = links
-        .map((link) => document.querySelector(link.href))
-        .filter(Boolean)
-        .find((section) => {
-          const rect = section.getBoundingClientRect();
-          return rect.top <= 140 && rect.bottom >= 140;
-        });
+      scrollFrameRef.current = window.requestAnimationFrame(() => {
+        scrollFrameRef.current = 0;
+        const nextIsScrolled = window.scrollY > 24;
 
-      if (visibleSection) {
-        setActiveSection(visibleSection.id);
-      }
+        if (nextIsScrolled !== isScrolledRef.current) {
+          isScrolledRef.current = nextIsScrolled;
+          setIsScrolled(nextIsScrolled);
+        }
+      });
     };
 
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+
+      if (scrollFrameRef.current) {
+        window.cancelAnimationFrame(scrollFrameRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const sections = links
+      .map((link) => document.querySelector(link.href))
+      .filter(Boolean);
+
+    if (!sections.length) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visibleEntry && visibleEntry.target.id !== activeSectionRef.current) {
+          activeSectionRef.current = visibleEntry.target.id;
+          setActiveSection(visibleEntry.target.id);
+        }
+      },
+      {
+        root: null,
+        rootMargin: "-120px 0px -48% 0px",
+        threshold: [0.1, 0.35, 0.65],
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
   }, [links]);
 
   const renderLinks = (className = "") =>

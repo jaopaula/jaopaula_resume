@@ -210,7 +210,7 @@ const SpectraNoiseBackground = ({
   noiseIntensity = 0.055,
   scanlineIntensity = 0.012,
   scanlineFrequency = 1.15,
-  speed = 0.5,
+  speed = 0.55,
   warpAmount = 0.22,
   resolutionScale = 0.74,
 }) => {
@@ -247,6 +247,7 @@ const SpectraNoiseBackground = ({
     const mobile = window.matchMedia("(max-width: 760px)");
     const frameInterval = 1000 / 24;
     const startTime = performance.now();
+    let isInViewport = true;
 
     const buffer = gl.createBuffer();
     const positionLocation = gl.getAttribLocation(program, "position");
@@ -316,8 +317,10 @@ const SpectraNoiseBackground = ({
 
     const start = () => {
       stop();
+      if (!isInViewport || document.hidden) return;
+
       resize();
-      render(startTime);
+      render(performance.now());
 
       if (!reduceMotion.matches && !mobile.matches && !document.hidden) {
         frameRef.current = window.requestAnimationFrame(animate);
@@ -332,8 +335,28 @@ const SpectraNoiseBackground = ({
       }
     };
 
-    const observer = new ResizeObserver(start);
-    observer.observe(canvas);
+    const resizeObserver = new ResizeObserver(start);
+    resizeObserver.observe(canvas);
+
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        isInViewport = entry.isIntersecting;
+
+        if (isInViewport) {
+          start();
+        } else {
+          stop();
+        }
+      },
+      {
+        root: null,
+        rootMargin: "160px 0px",
+        threshold: 0.01,
+      }
+    );
+
+    visibilityObserver.observe(canvas.parentElement || canvas);
+
     reduceMotion.addEventListener("change", start);
     mobile.addEventListener("change", start);
     document.addEventListener("visibilitychange", handleVisibility);
@@ -341,7 +364,8 @@ const SpectraNoiseBackground = ({
 
     return () => {
       stop();
-      observer.disconnect();
+      resizeObserver.disconnect();
+      visibilityObserver.disconnect();
       reduceMotion.removeEventListener("change", start);
       mobile.removeEventListener("change", start);
       document.removeEventListener("visibilitychange", handleVisibility);
