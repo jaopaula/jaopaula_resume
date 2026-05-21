@@ -22,10 +22,10 @@ const SectionHeader = ({ eyebrow, title, description, light = false, animated = 
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.35 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.68, ease: [0.22, 1, 0.36, 1] }}
     >
       <HeaderContent eyebrow={eyebrow} title={title} description={description} />
     </motion.div>

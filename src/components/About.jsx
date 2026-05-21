@@ -34,10 +34,14 @@ const About = () => (
           <motion.article
             className="pillar-card"
             key={pillar.title}
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.45, delay: index * 0.08 }}
+            transition={{
+              duration: 0.7,
+              delay: index * 0.06,
+              ease: [0.22, 1, 0.36, 1],
+            }}
           >
             <div className="icon-badge">{pillar.icon}</div>
             <h3>{pillar.title}</h3>

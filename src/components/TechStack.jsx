@@ -14,11 +14,14 @@ const TechStack = ({ groups }) => (
           <motion.article
             className="tech-group"
             key={group.title}
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.45, delay: index * 0.07 }}
-            whileHover={{ y: -4 }}
+            transition={{
+              duration: 0.7,
+              delay: index * 0.05,
+              ease: [0.22, 1, 0.36, 1],
+            }}
           >
             <h3>{group.title}</h3>
             <div className="tag-list">
