@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import About from "./components/About";
 import Cases from "./components/Cases";
 import Contact from "./components/Contact";
@@ -18,18 +18,30 @@ import {
 import "./styles/components/app.sass";
 
 function App() {
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
     const id = window.location.hash.slice(1);
-    if (!id) return undefined;
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+
+    if (!id || id === "hero") {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      root.style.scrollBehavior = previousScrollBehavior;
+      return undefined;
+    }
 
     const frame = window.requestAnimationFrame(() => {
       const target = document.getElementById(id);
-      if (!target) return;
+      if (!target) {
+        root.style.scrollBehavior = previousScrollBehavior;
+        return;
+      }
 
       const contentTarget = target.querySelector(".section-shell") || target;
-      const root = document.documentElement;
-      const previousScrollBehavior = root.style.scrollBehavior;
-      root.style.scrollBehavior = "auto";
       window.scrollTo({
         top: Math.max(0, window.scrollY + contentTarget.getBoundingClientRect().top - 112),
         left: 0,
